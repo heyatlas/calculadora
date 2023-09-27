@@ -344,6 +344,15 @@
       "benefit-productivity": 15
     };
 
+    const QTY_PEOPLE = {
+      '< 10': 10,
+      '10 - 50': 30,
+      '51 - 100': 75,
+      '101 - 250': 175,
+      '251 - 500': 375,
+      '> 500': 750
+    }
+
     // Get nodes for fields that will be replaced.
     const $budgetQtyPeople = document.querySelector(".budget__qty-collabs");
     const $budgetBenefits = document.querySelector(".budget__benefits")
@@ -419,7 +428,7 @@
         .map((ben) => BENEFIT_PRICE[ben])
         .reduce((res, each) => res + each, 0);
 
-      return costBenefits * qtyPeople;
+      return costBenefits * QTY_PEOPLE[qtyPeople];
     };
 
     const getQtyProviders = () => {
@@ -459,10 +468,10 @@
       console.log(amountTotal)
       console.log(qtyProviders)
       console.log(moHours)
-      //$budgetAmountPerson.innerText = amountPerson;
-      //$budgetAmountTotal.innerText = amountTotal;
-      //$budgetQtyProviders.innerText = qtyProviders;
-      //$budgetMoHours.innerText = moHours;
+      $budgetAmountPerson.innerText = amountPerson;
+      $budgetAmountTotal.innerText = amountTotal;
+      $budgetQtyProviders.innerText = qtyProviders;
+      $budgetMoHours.innerText = moHours;
     };
 
     return {
