@@ -501,7 +501,7 @@
         const nextStep = currentStep + 1
         $mainForm.setAttribute('data-active-step', nextStep)
 
-        if (nextStep < 5) {
+        if (nextStep < 6) {
           handleSubmitStatus()
         } else {
           const { replaceResultsAll } = handleLastStep()
