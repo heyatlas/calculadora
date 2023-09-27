@@ -353,6 +353,8 @@
       '> 500': 750
     }
 
+    const BENEFIT_TYPE_HEALTH = ['benefit-health-pre-select', 'benefit-health-tel-select']
+
     // Get nodes for fields that will be replaced.
     const $budgetQtyPeople = document.querySelector(".budget__qty-collabs");
     const $budgetBenefits = document.querySelector(".budget__benefits")
@@ -390,6 +392,7 @@
 
       return $selected
         .map(($s) => $s.id)
+        .filter((name) => !BENEFIT_TYPE_HEALTH.includes(name))
         .map((name) => name.substring(0, name.lastIndexOf("-")));
     };
 
