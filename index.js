@@ -414,6 +414,7 @@
 
     const getAmountPerson = () => {
       const benefits = getBenefits();
+      console.log({benefits, BENEFIT_PRICE})
       const costBenefits = benefits
         .map((ben) => BENEFIT_PRICE[ben])
         .reduce((res, each) => res + each, 0);
