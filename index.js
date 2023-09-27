@@ -43,15 +43,11 @@
           .filter((elem) => elem.selected)
           .filter((elem) => elem.value !== 'placeholder')
 
-        console.log({ $selected })
-
         return $selected.length === 0
       }
       case 2: {
         const $options = $form.querySelectorAll('input[type=\'checkbox\']')
         const $selected = Array.from($options).filter((elem) => elem.checked)
-
-        console.log({ $selected })
 
         if ($selected.length === 0) return true
 
@@ -60,7 +56,6 @@
         )
         if ($selectedIsBudged) {
           const $value = document.querySelector('#budget').value
-          console.log({ $value })
           return $value.length === 0
         }
 
@@ -71,7 +66,6 @@
         $selectCountry.select2()
 
         const $selected = $($selectCountry.select2('data'))
-        console.log({ $selected })
 
         return $selected.length === 0
       }
@@ -97,8 +91,6 @@
           const $selectedHealth = Array.from($optionsHealth).filter(
             (elem) => elem.checked
           )
-
-          console.log({ $selectedHealth })
 
           return $selectedHealth.length === 0
         }
@@ -417,7 +409,6 @@
 
     const getAmountPerson = () => {
       const benefits = getBenefits()
-      console.log({ benefits, BENEFIT_PRICE })
       const costBenefits = benefits
         .map((ben) => BENEFIT_PRICE[ben])
         .reduce((res, each) => res + each, 0)
@@ -445,6 +436,7 @@
     const getMoHours = () => {
       const benefits = getBenefits()
       const qtyCountries = getQtyCountries()
+      console.log({benefits, qtyCountries})
 
       return benefits.length * qtyCountries * 2
     }
@@ -475,7 +467,7 @@
       $budgetAmountPerson.innerText = amountPerson
       $budgetAmountTotal.innerText = amountTotal
       $budgetQtyProviders.innerText = qtyProviders
-      //Array.from($budgetMoHours).forEach($elem => $elem.innerText = moHours)
+      Array.from($budgetMoHours).forEach($elem => $elem.innerText = moHours)
     }
 
     return {
