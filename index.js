@@ -454,10 +454,15 @@
           $benefit.setAttribute("style", "display: none;");
         }
       });
-      $budgetAmountPerson.innerText = amountPerson;
-      $budgetAmountTotal.innerText = amountTotal;
-      $budgetQtyProviders.innerText = qtyProviders;
-      $budgetMoHours.innerText = moHours;
+
+      console.log(amountPerson)
+      console.log(amountTotal)
+      console.log(qtyProviders)
+      console.log(moHours)
+      //$budgetAmountPerson.innerText = amountPerson;
+      //$budgetAmountTotal.innerText = amountTotal;
+      //$budgetQtyProviders.innerText = qtyProviders;
+      //$budgetMoHours.innerText = moHours;
     };
 
     return {
