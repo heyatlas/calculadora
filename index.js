@@ -367,7 +367,7 @@
     const $budgetQtyProviders = document.querySelector(
       ".budget__qty_providers"
     );
-    const $budgetMoHours = document.querySelector(".budget__mo-hours");
+    const $budgetMoHours = document.querySelectorAll(".budget__mo-hours");
 
     const getQtyPeople = () => {
       const formClassName = ".step-1-form-field";
@@ -471,7 +471,7 @@
       $budgetAmountPerson.innerText = amountPerson;
       $budgetAmountTotal.innerText = amountTotal;
       $budgetQtyProviders.innerText = qtyProviders;
-      $budgetMoHours.innerText = moHours;
+      Array.from($budgetMoHours).forEach($elem => $elem.innerText = moHours;)
     };
 
     return {
