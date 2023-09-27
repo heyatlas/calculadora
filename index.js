@@ -472,7 +472,7 @@
       $budgetAmountPerson.innerText = amountPerson;
       $budgetAmountTotal.innerText = amountTotal;
       $budgetQtyProviders.innerText = qtyProviders;
-      Array.from($budgetMoHours).forEach($elem => $elem.innerText = moHours;)
+      Array.from($budgetMoHours).forEach($elem => $elem.innerText = moHours)
     };
 
     return {
