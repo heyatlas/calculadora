@@ -477,18 +477,47 @@
         }
       })
 
-      console.log(amountPerson)
-      console.log(amountTotal)
-      console.log(qtyProviders)
-      console.log(moHours)
       $budgetAmountPerson.innerText = amountPerson
       $budgetAmountTotal.innerText = amountTotal
       $budgetQtyProviders.innerText = qtyProviders
       Array.from($budgetMoHours).forEach($elem => $elem.innerText = moHours)
     }
 
+    const postResultsToAirtable = () => {
+      const qtyPeople = getQtyPeople()
+      const benefits = getBenefits()
+      const qtyCountries = getQtyCountries()
+      const flags = getFlags()
+      const amountPerson = getAmountPerson()
+      const amountTotal = getAmountTotal()
+      const qtyProviders = getQtyProviders()
+      const moHours = getMoHours()
+
+      const data = {
+        qtyPeople,
+        benefits,
+        qtyCountries,
+        flags,
+        amountPerson,
+        amountTotal,
+        qtyProviders,
+        moHours,
+      }
+
+      return fetch('https://3562-24-232-110-208.ngrok-free.app/', { // todo: replace
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      }).then(response => response.json())
+        .then(data => console.info(data))
+        .catch(error => console.error(error))
+    }
+
     return {
-      replaceResultsAll
+      replaceResultsAll,
+      postResultsToAirtable
     }
   }
 
@@ -513,8 +542,9 @@
         if (nextStep < 6) {
           handleSubmitStatus()
         } else {
-          const { replaceResultsAll } = handleLastStep()
+          const { replaceResultsAll, postResultsToAirtable } = handleLastStep()
           replaceResultsAll()
+          postResultsToAirtable()
         }
       })
     })
