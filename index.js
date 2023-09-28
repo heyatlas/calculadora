@@ -111,6 +111,7 @@
             return true
           }
 
+          $errorMsg.setAttribute('style', 'display: none;')
           return false
         }
 
