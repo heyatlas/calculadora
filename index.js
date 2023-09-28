@@ -380,6 +380,8 @@
     )
     const $budgetMoHours = document.querySelectorAll('.budget__mo-hours')
 
+    const $budgetAmountAssigned = document.querySelector('.budget__assigned')
+
     const getQtyPeople = () => {
       const formClassName = '.step-1-form-field'
       const $form = document.querySelector(formClassName)
@@ -392,7 +394,30 @@
       return $selected[0].value
     }
 
+    const getBudgetAssigned = () => {
+      return $budgetAmountAssigned.value
+    }
+
+    const getUserEmail = () => {
+      const formClassName = '.step-5-form-field'
+      const $form = document.querySelector(formClassName)
+
+      return $form.value
+    }
+
     const getBenefits = () => {
+      const formClassName = '.step-4-form-field'
+      const $form = document.querySelector(formClassName)
+
+      const $options = $form.querySelectorAll('input[type=\'checkbox\']')
+      const $selected = Array.from($options).filter((elem) => elem.checked)
+
+      return $selected
+        .map(($s) => $s.id)
+        .map((name) => name.substring(0, name.lastIndexOf('-')))
+    }
+
+    const getFilteredBenefits = () => {
       const formClassName = '.step-4-form-field'
       const $form = document.querySelector(formClassName)
 
@@ -434,7 +459,7 @@
     }
 
     const getAmountPerson = () => {
-      const benefits = getBenefits()
+      const benefits = getFilteredBenefits()
       const costBenefits = benefits
         .map((ben) => BENEFIT_PRICE[ben])
         .reduce((res, each) => res + each, 0)
@@ -444,7 +469,7 @@
 
     const getAmountTotal = () => {
       const qtyPeople = getQtyPeople()
-      const benefits = getBenefits()
+      const benefits = getFilteredBenefits()
       const costBenefits = benefits
         .map((ben) => BENEFIT_PRICE[ben])
         .reduce((res, each) => res + each, 0)
@@ -453,14 +478,14 @@
     }
 
     const getQtyProviders = () => {
-      const benefits = getBenefits()
+      const benefits = getFilteredBenefits()
       const qtyCountries = getQtyCountries()
 
       return benefits.length * qtyCountries
     }
 
     const getMoHours = () => {
-      const benefits = getBenefits()
+      const benefits = getFilteredBenefits()
       const qtyCountries = getQtyCountries()
       console.log({ benefits, qtyCountries })
 
@@ -469,7 +494,7 @@
 
     const replaceResultsAll = () => {
       const qtyPeople = getQtyPeople()
-      const benefits = getBenefits()
+      const benefits = getFilteredBenefits()
       const qtyCountries = getQtyCountries()
       const flags = getFlags()
       const amountPerson = getAmountPerson()
@@ -502,6 +527,8 @@
       const qtyProviders = getQtyProviders()
       const moHours = getMoHours()
       const countries = getCountries()
+      const email = getUserEmail()
+      const budgetAssigned = getBudgetAssigned()
 
       const data = {
         qtyPeople,
@@ -512,7 +539,9 @@
         amountTotal,
         qtyProviders,
         moHours,
-        countries
+        countries,
+        email,
+        budgetAssigned
       }
 
       return fetch('https://3562-24-232-110-208.ngrok-free.app/', { // todo: replace
