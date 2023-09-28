@@ -98,7 +98,15 @@
         return false
       }
       case 5: {
-        return $form.value.length === 0
+        const FORBIDDEN_DOMAINS = ['gmail', 'yahoo', 'hotmail', 'aol', 'live', 'outlook', 'msn']
+        const REGEX_VALID_EMAIL = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+        const $errorMsg = document.querySelector('.step-5-error')
+
+        const invalidEmail = !REGEX_VALID_EMAIL.test($form.value) || FORBIDDEN_DOMAINS.includes($form.value)
+        $errorMsg.style.display = invalidEmail ? 'block' : 'none'
+
+        return invalidEmail
       }
 
       default:
@@ -436,7 +444,7 @@
     const getMoHours = () => {
       const benefits = getBenefits()
       const qtyCountries = getQtyCountries()
-      console.log({benefits, qtyCountries})
+      console.log({ benefits, qtyCountries })
 
       return benefits.length * qtyCountries * 2
     }
