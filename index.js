@@ -103,10 +103,18 @@
 
         const $errorMsg = document.querySelector('.step-5-error')
 
-        const invalidEmail = !REGEX_VALID_EMAIL.test($form.value) || FORBIDDEN_DOMAINS.includes($form.value)
-        $errorMsg.style.display = invalidEmail ? 'block' : 'none'
+        if (REGEX_VALID_EMAIL.test($form.value)) {
+          const emailDomain = $form.value.split('@')[1].split('.')[0]
 
-        return invalidEmail
+          if (FORBIDDEN_DOMAINS.includes(emailDomain)) {
+            $errorMsg.setAttribute('style', 'display: block;')
+            return true
+          }
+
+          return false
+        }
+
+        return true
       }
 
       default:
