@@ -515,18 +515,16 @@
         countries
       }
 
-      const URL = 'https://3562-24-232-110-208.ngrok-free.app/'
-
-      const xhr = new XMLHttpRequest()
-      xhr.open('POST', URL, true)
-      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200)
-          console.log(JSON.parse(xhr.responseText))
-      }
-
-      xhr.send(JSON.stringify(data))
+      return fetch('https://3562-24-232-110-208.ngrok-free.app/', { // todo: replace
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': true
+        },
+        body: JSON.stringify(data)
+      }).then(response => response.json())
+        .then(data => console.info(data))
+        .catch(error => console.error(error))
     }
 
     return {
