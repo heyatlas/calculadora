@@ -413,6 +413,15 @@
       return $selected.length
     }
 
+    const getCountries = () => {
+      const $selectCountry = $('#select-country') // jQuery because of the select2 lib
+      $selectCountry.select2()
+
+      const $selected = $($selectCountry.select2('data'))
+      return Array.from($selected)
+        .map(($s) => $s.text)
+    }
+
     const getFlags = () => {
       const $selectCountry = $('#select-country') // jQuery because of the select2 lib
       $selectCountry.select2()
@@ -492,6 +501,7 @@
       const amountTotal = getAmountTotal()
       const qtyProviders = getQtyProviders()
       const moHours = getMoHours()
+      const countries = getCountries()
 
       const data = {
         qtyPeople,
@@ -502,17 +512,21 @@
         amountTotal,
         qtyProviders,
         moHours,
+        countries
       }
 
-      return fetch('https://3562-24-232-110-208.ngrok-free.app/', { // todo: replace
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-      }).then(response => response.json())
-        .then(data => console.info(data))
-        .catch(error => console.error(error))
+      const URL = 'https://3562-24-232-110-208.ngrok-free.app/'
+
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', URL, true)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200)
+          console.log(JSON.parse(xhr.responseText))
+      }
+
+      xhr.send(JSON.stringify(data))
     }
 
     return {
