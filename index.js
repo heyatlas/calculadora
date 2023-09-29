@@ -547,8 +547,7 @@
       return fetch('https://x9u1z4r1xa.execute-api.us-west-2.amazonaws.com/prod', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': true
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       }).then(response => response.json())
