@@ -544,7 +544,7 @@
         budgetAssigned
       }
 
-      return fetch('https://3562-24-232-110-208.ngrok-free.app/', { // todo: replace
+      return fetch('https://x9u1z4r1xa.execute-api.us-west-2.amazonaws.com/prod', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
